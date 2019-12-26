@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A62ECE73-CC55-44DD-9D57-0E8E123FDDCD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>RitoCSharpLibrary</RootNamespace>
+    <AssemblyName>RitoCSharpLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainClass.cs" />
+    <Compile Include="Rito\RitoAdmin.cs" />
+    <Compile Include="Rito\RitoConsole.cs" />
+    <Compile Include="Rito\RitoDelegate.cs" />
+    <Compile Include="Rito\RitoFileHandler.cs" />
+    <Compile Include="Rito\RitoInterceptMouse.cs" />
+    <Compile Include="Rito\RitoMath.cs" />
+    <Compile Include="Rito\RitoRandom.cs" />
+    <Compile Include="Rito\RitoRegex.cs" />
+    <Compile Include="Rito\RitoSmarts.cs" />
+    <Compile Include="Rito\RitoString.cs" />
+    <Compile Include="Rito\RitoTester.cs" />
+    <Compile Include="Study\IndexerStudy.cs" />
+    <Compile Include="Study\IteratorStudy.cs" />
+    <Compile Include="Study\LinqStudy.cs" />
+    <Compile Include="Study\PatternMatching.cs" />
+    <Compile Include="Study\StringStudy.cs" />
+    <Compile Include="Study\Parent\StudyClass.cs" />
+    <Compile Include="Study\TupleStudy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
