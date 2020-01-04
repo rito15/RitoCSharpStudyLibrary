@@ -19,10 +19,12 @@ namespace RitoCSharpLibrary
                 new Study.LinqStudy(),          // 191118 월 ~
                 new Study.IndexerStudy(),       // 191216 월
                 new Study.PatternMatching(),    // 191218 수
+                new Study.OperatorOverloadingStudy(), // 191227 금
+
             };
 
-            foreach (var s in sc)
-                s.Run();
+            //foreach (var s in sc) s.Run();
+            RitoSmarts.Foreach(sc, s => s.Run());
         }
 
         public static void Main_1(string[] args)

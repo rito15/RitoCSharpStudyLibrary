@@ -91,26 +91,36 @@ namespace Rito
         //    : 날짜, 시간, URL, 이메일, 실수, 휴대폰번호 등등
         //    => 날짜에서는 연 월 일, 실수에서는 정수부와 실수부, URL 에서는 주소와 포트, 파라미터 등을 튜플로 리턴
 
-        #endregion
+        #endregion // ==========================================================
 
         #region Default Checker Methods
 
-        // 스트링과 포맷을 직접 검사
+        /// <summary>
+        /// 스트링과 포맷을 직접 검사
+        /// <para/> prmStr : 검사할 대상 스트링
+        /// <para/> prmFormatStr : 문자열 형식(정규식, 스트링에 @ 붙여 사용)
+        /// </summary>
         public static bool CheckFormat(in string prmStr, in string prmFormatStr)
         {
             Regex regex = new Regex(prmFormatStr);
             return regex.IsMatch(prmStr);
         }
+        /// <summary>
+        /// 스트링과 포맷을 직접 검사
+        /// <para/> prmStr : 검사할 대상 스트링
+        /// </summary>
         public static bool CheckFormat(in string prmStr, in Regex regex)
         {
             return regex.IsMatch(prmStr);
         }
 
-        #endregion
+        #endregion // ==========================================================
 
         #region Specific Checker Methods
 
-        // 문자열 길이 검사
+        /// <summary>
+        /// 문자열 길이 검사
+        /// </summary>
         public static bool Length(string prmStr, int prmLength)
         {
             if (prmLength < 0)
@@ -119,60 +129,108 @@ namespace Rito
             return prmStr.Length == prmLength;
         }
 
-        // 알파벳만 있는지 검사
+        /// <summary>
+        /// 알파벳만 있는지 검사
+        /// </summary>
         public static bool IsOnlyAlphabet(string prmStr)
         {
             return _onlyAlphabet.IsMatch(prmStr);
         }
 
-        // 대문자만 있는지 검사
+        /// <summary>
+        /// 대문자만 있는지 검사
+        /// </summary>
         public static bool IsOnlyUpperCase(string prmStr)
         {
             return _onlyAlphabetLowerCase.IsMatch(prmStr);
         }
 
-        // 소문자만 있는지 검사
+        /// <summary>
+        /// 소문자만 있는지 검사
+        /// </summary>
         public static bool IsOnlyLowerCase(string prmStr)
         {
             return _onlyAlphabetLowerCase.IsMatch(prmStr);
         }
 
-        // 영문자, 숫자만 있는지 검사
+        /// <summary>
+        /// 영문자, 숫자만 있는지 검사
+        /// </summary>
         public static bool IsOnlyAlphaDigit(string prmStr)
         {
             return _onlyAlphaDigit.IsMatch(prmStr);
         }
 
-        // 숫자만 있는지 검사
+        /// <summary>
+        /// 숫자만 있는지 검사
+        /// </summary>
         public static bool IsOnlyDigit(string prmStr)
         {
             return _onlyDigit.IsMatch(prmStr);
         }
 
-        // 정수인지 검사
+        /// <summary>
+        /// 정수인지 검사 (양수, 음수)
+        /// </summary>
         public static bool IsNumber(string prmStr)
         {
             return _NumberFormat.IsMatch(prmStr);
         }
 
-        // 실수인지 검사
+        /// <summary>
+        /// 실수인지 검사 (양수, 음수, 정수 포함)
+        /// </summary>
         public static bool IsFloatNumber(string prmStr)
         {
             return _FloatNumberFormat.IsMatch(prmStr);
         }
 
-        // 핸드폰번호 형식인지 검사
+        /// <summary>
+        /// 핸드폰번호 형식인지 검사(010-1234-5678)
+        /// </summary>
         public static bool IsPhoneNumber(string prmStr)
         {
             return _PhoneNumberFormat.IsMatch(prmStr);
         }
 
-        // 이메일 형식인지 검사
+        /// <summary>
+        /// 이메일 형식인지 검사(abc1234@site.com)
+        /// </summary>
         public static bool IsEmail(string prmStr)
         {
             return _EmailFormat.IsMatch(prmStr);
         }
 
-        #endregion
+        #endregion // ==========================================================
+
+        #region Extractor Methods
+
+        /// <summary>
+        /// <para/> 문자열 추출
+        /// <para/> --------------------------
+        /// <para/> original : 원본 문자열
+        /// <para/> start : 시작 문자열
+        /// <para/> end : 끝 문자열
+        /// <para/> --------------------------
+        /// <para/> allowed : 허용할 특정 문자 또는 문자 형태 (@ 사용)
+        /// <para/> excepted : 제외할 특정 문자 또는 문자 형태 (@ 사용)
+        /// <para/> --------------------------
+        /// <para/> [문자 형태]
+        /// <para/> \s(공백) \S(공백 제외 모든 문자)
+        /// <para/> \d(숫자), \D(숫자 제외 모든 문자)
+        /// <para/> \w(영문자, 숫자), \W(영문자, 숫자 제외 모든 문자)
+        /// <para/> A-Za-z(영문자), ^A-Za-z(영문자 제외 모든 문자)
+        /// </summary>
+        public static string SubString(
+            in string original,
+            in string start,
+            in string end,
+            in string allowed = @"\d",
+            in string excepted = "")
+        {
+
+        }
+
+        #endregion // ==========================================================
     }
 }
