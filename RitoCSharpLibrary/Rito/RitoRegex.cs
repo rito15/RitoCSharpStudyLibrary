@@ -205,8 +205,10 @@ namespace Rito
 
         /// <summary>
         /// <para/> 디렉토리\파일.확장자 꼴에서 디렉토리 경로들만 추출하기(AAA\BBB\CCC)
+        /// <para/> ----------------------------------------------
+        /// <para/> [파라미터]
         /// <para/> source : 원본 경로 문자열(AAA\BBB\CCC\file name.ext)
-        /// <para/> containsLastChar : 디렉토리 경로에서 마지막 \ 포함할지 여부
+        /// <para/> containsLastChar : 디렉토리 경로에서 마지막 \ 포함할지 여부 (기본 : false)
         /// </summary>
         public static string GetDirectoryPath(in string source, bool containsLastChar = false)
         {
@@ -221,6 +223,8 @@ namespace Rito
         // 2. 디렉토리\파일.확장자 꼴에서 파일 이름만 추출하기 (fileName)
         /// <summary>
         /// <para/> 디렉토리\파일.확장자 꼴에서 파일 이름만 추출하기(file name)
+        /// <para/> ----------------------------------------------
+        /// <para/> [파라미터]
         /// <para/> source : 원본 경로 문자열(AAA\BBB\CCC\file name.ext)
         /// </summary>
         public static string GetFileName(in string source)
@@ -233,8 +237,10 @@ namespace Rito
 
         /// <summary>
         /// <para/> 디렉토리\파일.확장자 꼴에서 확장자만 추출하기(ext)
+        /// <para/> ----------------------------------------------
+        /// <para/> [파라미터]
         /// <para/> source : 원본 경로 문자열(AAA\BBB\CCC\file name.ext)
-        /// <para/> containsDot : .ext 꼴에서 . 포함할지 여부(기본 false)
+        /// <para/> containsDot : .ext 꼴에서 . 포함할지 여부(기본 : false)
         /// </summary>
         public static string GetExtension(in string source, bool containsDot = false)
         {
@@ -246,7 +252,10 @@ namespace Rito
             return result;
         }
 
+        /// <summary>
         /// <para/> 디렉토리\파일.확장자 꼴에서 파일.확장자만 추출하기(file name.ext)
+        /// <para/> ----------------------------------------------
+        /// <para/> [파라미터]
         /// <para/> source : 원본 경로 문자열(AAA\BBB\CCC\file name.ext)
         /// </summary>
         public static string GetFileNameExtension(in string source)
