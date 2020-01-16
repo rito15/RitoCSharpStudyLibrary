@@ -19,17 +19,17 @@ namespace RitoCSharpLibrary
                 new Study.LinqStudy(),          // 191118 월 ~
                 new Study.IndexerStudy(),       // 191216 월
                 new Study.PatternMatching(),    // 191218 수
-                new Study.OperatorOverloadingStudy(), // 191227 금
-
             };
 
-            //foreach (var s in sc) s.Run();
-            RitoSmarts.Foreach(sc, s => s.Run());
+            //foreach (var s in sc)
+            //    s.Run();
+
+            Main_4();
         }
 
         public static void Main_1(string[] args)
         {
-            
+
 
             RitoConsole.PrintLine(80); RitoConsole.Enter(3);
 
@@ -41,7 +41,7 @@ namespace RitoCSharpLibrary
 
             RitoConsole.PrintArray(strList1, 1, 1, 5, true);
             RitoConsole.PrintArray(strList2, 4, 3, 5, true);
-            
+
             Console.WriteLine(RitoString.Substring("apodwjapwdj", -22, 3));
         }
 
@@ -55,7 +55,7 @@ namespace RitoCSharpLibrary
         {
             IEnumerable<int> intEnum = new int[] { 1, 2, 3, 4, 5 };
             int[] intArray = { 5, 4, 3, 2, 1 };
-            List<int> intList = new List<int>{ 6, 7, 8, 9, 10 };
+            List<int> intList = new List<int> { 6, 7, 8, 9, 10 };
 
             //RitoSmarts.Foreach(intEnum, a => { Console.WriteLine($"1 : {a}"); });
             //RitoSmarts.Foreach(intArray, a => { Console.WriteLine($"2 : {a}"); });
@@ -129,6 +129,23 @@ namespace RitoCSharpLibrary
 
             Console.WriteLine(RitoRegex.IsNumber("-202"));
             Console.WriteLine(RitoRegex.IsFloatNumber("-2.02"));
+        }
+
+        // 200117 - 정규식
+        public static void Main_4()
+        {
+            Console.WriteLine(RitoRegex.Substring(@"Samin\AAAA\BBBB\Tester.cs", @"\\", ".cs", @"\\"));
+            Console.WriteLine(RitoRegex.Substring(@"SaminAAAABBBBTester.cs", @"B", ".cs"));
+
+            Console.WriteLine(RitoRegex.GetDirectoryPath(@"Samin\A0001\B1234\C Sh arp.cs"));
+            Console.WriteLine(RitoRegex.GetDirectoryPath(@"Samin\A0001\B1234\C Sh arp.cs", true));
+
+            Console.WriteLine(RitoRegex.GetFileName(@"Samin\A0001\B1234\C Sh arp.cs"));
+
+            Console.WriteLine(RitoRegex.GetExtension(@"Samin\A0001\B1234\C Sh arp.cs"));
+            Console.WriteLine(RitoRegex.GetExtension(@"Samin\A0001\B1234\C Sh arp.cs", true));
+
+            Console.WriteLine(RitoRegex.GetFileNameExtension(@"Samin\A0001\B1234\C Sh arp.cs"));
         }
     }
 }
