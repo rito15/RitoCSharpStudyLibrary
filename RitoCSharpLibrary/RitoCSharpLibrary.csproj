@@ -51,6 +51,7 @@
     <Compile Include="Study\IndexerStudy.cs" />
     <Compile Include="Study\IteratorStudy.cs" />
     <Compile Include="Study\LinqStudy.cs" />
+    <Compile Include="Study\OperatorOverloadingStudy.cs" />
     <Compile Include="Study\PatternMatching.cs" />
     <Compile Include="Study\StringStudy.cs" />
     <Compile Include="Study\Parent\StudyClass.cs" />
