@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,6 +47,19 @@ namespace Rito
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// 지정된 횟수로 해당 메소드를 실행하고 경과 시간 리턴
+        /// </summary>
+        public static long TimeCheck(in int count, Action action)
+        {
+            TimeCheckStart();
+
+            for (int i = 0; i < count; i++)
+                action();
+
+            return TimeCheckStop();
         }
     }
 }

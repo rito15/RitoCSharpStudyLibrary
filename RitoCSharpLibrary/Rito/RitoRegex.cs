@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,7 @@ namespace Rito
 {
     // 2019. 12. 15. 최초 작성
     // 2020. 01. 17. Substring, 디렉토리 및 파일명, 확장자 추출 메소드 추가
+    // 2020. 01. 19. Find, Replace 메소드 추가
 
     /// <summary>
     /// <para/> [정규식 문법]
@@ -266,5 +267,178 @@ namespace Rito
         }
 
         #endregion
+
+        #region 문자열 검사 메소드
+
+        /// <summary>
+        /// 문자열이 타겟 문자열을 포함하고 있는지 검사
+        /// <para/> ---------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> source : 원본 문자열
+        /// <para/> target : 부분 문자열
+        /// <para/> isCaseSensitive : 대소문자 구분 여부(기본 true)
+        /// <para/> ---------------------------------------------------
+        /// <para/> * 패턴이 아닌 정확한 문자열 검사의 경우, Regex보다 string의 성능이 더 좋다.
+        /// </summary>
+        public static bool Find(in string source, in string target, bool isCaseSensitive = true)
+        {
+            // 1. 정확한 문자열 검사 - string
+            if (isCaseSensitive)
+            {
+                return source.Contains(target);
+            }
+            // 2. 패턴 검사 - Regex
+            else
+            {
+                return Regex.IsMatch(source, $"(?i){target}");
+            }
+        }
+
+        /// <summary>
+        /// 문자열이 타겟 문자열들을 모두 포함하고 있는지 검사
+        /// <para/> ---------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> source : 원본 문자열
+        /// <para/> target : 부분 문자열 리스트
+        /// <para/> isCaseSensitive : 대소문자 구분 여부(기본 true)
+        /// <para/> ---------------------------------------------------
+        /// <para/> * 패턴이 아닌 정확한 문자열 검사의 경우, Regex보다 string의 성능이 더 좋다.
+        /// </summary>
+        public static bool Find(in string source, in string[] target, bool isCaseSensitive = true)
+        {
+            // 1. 정확한 문자열 검사 - string
+            if (isCaseSensitive)
+            {
+                for (int i = 0; i < target.Length; i++)
+                {
+                    if (source.Contains(target[i]) == false)
+                        return false;
+                }
+                return true;
+            }
+            // 2. 패턴 검사 - Regex
+            else
+            {
+                for (int i = 0; i < target.Length; i++)
+                {
+                    if (Regex.IsMatch(source, $"(?i){target[i]}") == false)
+                        return false;
+                }
+                return true;
+            }
+        }
+
+        #endregion // ==========================================================
+
+        #region 문자열 교체 메소드
+
+        /// <summary>
+        /// 문자열 내의 부분 문자열을 다른 문자열로 변경하여 리턴
+        /// <para/> ---------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> source : 원본 문자열
+        /// <para/> target : 변경될 부분 문자열
+        /// <para/> replacement : 대체 문자열
+        /// <para/> isCaseSensitive : 대소문자 구분 여부(기본 true)
+        /// <para/> ---------------------------------------------------
+        /// <para/> [리턴]
+        /// <para/> source에서 target->replacement로 교체한 결과 문자열
+        /// </summary>
+        public static string Replace(in string source, string target, in string replacement, bool isCaseSensitive = true)
+        {
+            if (isCaseSensitive == false)
+                target = $"(?i){target}";
+
+            return Regex.Replace(source, target, replacement);
+        }
+
+        /// <summary>
+        /// 문자열 내의 부분 문자열을 다른 문자열로 변경하여 리턴
+        /// <para/> ---------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> source : 원본 문자열
+        /// <para/> target : 변경될 부분 문자열
+        /// <para/> replacement : 대체 문자열
+        /// <para/> isCaseSensitive : 대소문자 구분 여부(기본 true)
+        /// <para/> ---------------------------------------------------
+        /// <para/> [리턴]
+        /// <para/> source에서 target->replacement로 교체한 결과 문자열
+        /// </summary>
+        public static string Replace(string source, in string[] target, in string replacement, bool isCaseSensitive = true)
+        {
+            string targetString = string.Join("|", target);
+
+            if (isCaseSensitive == false)
+                targetString = $"(?i){targetString}";
+
+            return Regex.Replace(source, targetString, replacement);
+        }
+
+        /// <summary>
+        /// 문자열 내의 부분 문자열을 모두 특정 한가지 문자로 변경하여 리턴
+        /// <para/> ---------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> source : 원본 문자열
+        /// <para/> target : 변경될 부분 문자열
+        /// <para/> replacement : 대체 문자
+        /// <para/> isCaseSensitive : 대소문자 구분 여부(기본 true)
+        /// <para/> ---------------------------------------------------
+        /// <para/> [리턴]
+        /// <para/> source에서 target 문자들을 replacement로 교체한 결과 문자열
+        /// <para/> ---------------------------------------------------
+        /// <para/> [예시]
+        /// <para/> Replace("AbcABCdeAbCdEf", "cde", '*', false)
+        /// <para/> "AbcABCdeAbCdEf" -> "AbcAB***Ab***f"
+        /// </summary>
+        public static string Replace(string source, string target, in char replacement, bool isCaseSensitive = true)
+        {
+            string replaceString = "";
+
+            for (int j = 0; j < target.Length; j++)
+                replaceString += replacement;
+
+            if (isCaseSensitive == false)
+                target = $"(?i){target}";
+
+            source = Regex.Replace(source, target, replaceString);
+            return source;
+        }
+
+        /// <summary>
+        /// 문자열 내의 부분 문자열을 모두 특정 한가지 문자로 변경하여 리턴
+        /// <para/> ---------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> source : 원본 문자열
+        /// <para/> target : 변경될 부분 문자열들
+        /// <para/> replacement : 대체 문자
+        /// <para/> isCaseSensitive : 대소문자 구분 여부(기본 true)
+        /// <para/> ---------------------------------------------------
+        /// <para/> [리턴]
+        /// <para/> source에서 target 문자들을 replacement로 교체한 결과 문자열
+        /// <para/> ---------------------------------------------------
+        /// <para/> [예시]
+        /// <para/> Replace("AbcABCdeAbCdEf", new string[]{"a", "cde"}, '*', false)
+        /// <para/> "AbcABCdeAbCdEf" -> "*bc*B****b***f"
+        /// </summary>
+        public static string Replace(string source, in string[] target, in char replacement, bool isCaseSensitive = true)
+        {
+            string replaceString;
+
+            for (int i = 0; i < target.Length; i++)
+            {
+                replaceString = "";
+                for (int j = 0; j < target[i].Length; j++)
+                    replaceString += replacement;
+
+                if (isCaseSensitive == false)
+                    target[i] = $"(?i){target[i]}";
+
+                source = Regex.Replace(source, target[i], replaceString);
+            }
+            return source;
+        }
+
+        #endregion // ==========================================================
+
     }
 }

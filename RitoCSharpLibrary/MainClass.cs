@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,7 +24,7 @@ namespace RitoCSharpLibrary
             //foreach (var s in sc)
             //    s.Run();
 
-            Main_4();
+            Main_7();
         }
 
         public static void Main_1(string[] args)
@@ -146,6 +146,151 @@ namespace RitoCSharpLibrary
             Console.WriteLine(RitoRegex.GetExtension(@"Samin\A0001\B1234\C Sh arp.cs", true));
 
             Console.WriteLine(RitoRegex.GetFileNameExtension(@"Samin\A0001\B1234\C Sh arp.cs"));
+        }
+
+        // 200119 - 정규식 Find
+        // 결론 - string.Contains()가 Regex.Find()보다 성능이 좋다(패턴이 아닌 정확한 문자열에 한해서)
+        public static void Main_5()
+        {
+            int count = 5000;
+            var org = @"Samin\A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"0001\B1234\C Sh arp.cs";
+
+            var org2 = "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "apple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex line"
+                     + "apple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex line";
+
+            RitoTester.TimeCheckStart();
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine(RitoRegex.Find(org2, "rito") + " - true");
+                Console.WriteLine(RitoRegex.Find(org2, new string[] { "rito", "mon" }) + " - true");
+                Console.WriteLine(RitoRegex.Find(org2, new string[] { "rito", "mown" }) + " - false");
+
+                Console.WriteLine(RitoRegex.Find(org2, new string[] { "rito", "lin", "ap", "key", "re", "gex", "ne"}) + " - true");
+
+
+                //Console.WriteLine(RitoRegex.GetFileName(org));
+            }
+            var test1 = RitoTester.TimeCheckStop();
+
+            RitoTester.TimeCheckStart();
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine(org2.Contains("rito") + " - true");
+                Console.WriteLine((org2.Contains("rito") && org2.Contains("mon")) + " - true");
+                Console.WriteLine((org2.Contains("rito") && org2.Contains("mown")) + " - false");
+
+                Console.WriteLine((
+                    org2.Contains("rito") &&
+                    org2.Contains("lin") &&
+                    org2.Contains("ap") &&
+                    org2.Contains("key") &&
+                    org2.Contains("re") &&
+                    org2.Contains("gex") &&
+                    org2.Contains("ne")) + " - true");
+
+                //string aa = org;
+                //int start = aa.LastIndexOf(@"\");
+                //int end = aa.IndexOf(@".");
+
+                //Console.WriteLine(aa.Substring(start + 1, end - start - 1));
+            }
+            var test2 = RitoTester.TimeCheckStop();
+
+            Console.WriteLine("\n" + $"[1] {test1}, [2] {test2}");
+        }
+
+        // 200119 - 정규식 Replace - 성능 측정
+        public static void Main_6()
+        {
+            int count = 5000;
+            var org = @"Samin\A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A0001A"
+                    + @"0001\B1234\C Sh arp.cs";
+
+            var org2 = "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "apple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex line"
+                     + "apple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex line";
+
+            var org3 = "adaw90duaw09faw9fwa09faw09hfaw09hfa09hfaw09fahw09fawh09fawh09afwh09afwhf0a9hfa0hawf09hwaf09awhfa0w9hfwa09fhaw09fhaw09hfawdasdasfafwg"
+                     + "apple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex lineapple monkey rito regex line";
+
+            RitoTester.TimeCheckStart();
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine(org2.Replace("90", "**").Replace("monkey", "***").Replace("rito", "***"));
+                //Console.WriteLine(org2.Replace("90", "**").Replace("aw","**"));
+            }
+            var test1 = RitoTester.TimeCheckStop();
+
+            RitoTester.TimeCheckStart();
+            for (int i = 0; i < count; i++)
+            {
+                Console.WriteLine(System.Text.RegularExpressions.Regex.Replace(org2, "90", "**"));
+                //Console.WriteLine(RitoRegex.Replace(org2, new string[] { "90", "aw" }, "**"));
+            }
+            var test2 = RitoTester.TimeCheckStop();
+
+            Console.WriteLine("\n" + $"[1] {test1}, [2] {test2}");
+        }
+
+        // 200119 - 정규식 Find, Replace - 대소문자 구분 테스트
+        public static void Main_7()
+        {
+            string org1 = "ritoRitorItoriToritO tori roti";
+
+            Console.WriteLine(RitoRegex.Find(org1, "RITO", true));
+            Console.WriteLine(RitoRegex.Find(org1, "RITO", false));
+
+            Console.WriteLine(RitoRegex.Replace(org1, "rito", "****", true));
+            Console.WriteLine(RitoRegex.Replace(org1, "rito", "****", false));
+
+            Console.WriteLine(RitoRegex.Replace(org1, "rito", '*', true));
+            Console.WriteLine(RitoRegex.Replace(org1, "rito", '*', false));
+
+            Console.WriteLine(RitoRegex.Replace(org1, new string[] { "ri", "o" }, "--", true));
+            Console.WriteLine(RitoRegex.Replace(org1, new string[] { "ri", "o" }, "--", false));
+
+            Console.WriteLine(RitoRegex.Replace(org1, new string[] { "ri", "o" }, '*', true));
+            Console.WriteLine(RitoRegex.Replace(org1, new string[] { "ri", "o" }, '*', false));
         }
     }
 }
