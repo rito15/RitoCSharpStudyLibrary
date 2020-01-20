@@ -9,7 +9,7 @@ namespace Rito
     /// <summary>
     /// Smarts : 효율적이고 간결하고 간편한 문법 제공
     /// </summary>
-    class RitoSmarts
+    public static class RitoSmarts
     {
         #region Declarations
         public delegate void refCallBack<T>(ref T param);

@@ -24,7 +24,8 @@ namespace RitoCSharpLibrary
             //foreach (var s in sc)
             //    s.Run();
 
-            Main_7();
+            //Main_7();
+            Main_2020_01_21_ForeachExtention();
         }
 
         public static void Main_1(string[] args)
@@ -291,6 +292,17 @@ namespace RitoCSharpLibrary
 
             Console.WriteLine(RitoRegex.Replace(org1, new string[] { "ri", "o" }, '*', true));
             Console.WriteLine(RitoRegex.Replace(org1, new string[] { "ri", "o" }, '*', false));
+        }
+
+        public static void Main_2020_01_21_ForeachExtention()
+        {
+            int[] arr = { 0, 1, 2, 3, 4, 5 };
+
+            arr.Ex_Foreach((a) => { a++; });
+            RitoConsole.PrintArray(arr);
+
+            arr.Ex_Foreach((ref int a) => { a++; });
+            RitoConsole.PrintArray(arr);
         }
     }
 }
