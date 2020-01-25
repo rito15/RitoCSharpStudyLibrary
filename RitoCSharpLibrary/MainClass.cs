@@ -582,11 +582,29 @@ namespace RitoCSharpLibrary
 
         public static void Main_2020_01_26_Extensions()
         {
+            var intArray1 = new int[] { 0, 1, 2, 3, 4, 5 };
             var intList1 = new List<int> { 0, 1, 2, 3, 4, 5 };
             RitoConsole.PrintArray(intList1);
 
             intList1.ForEach(a => a++);
             RitoConsole.PrintArray(intList1);
+
+            Console.WriteLine("===");
+            RitoConsole.PrintArray(intArray1);
+
+            intArray1.Ex_Foreach(a => a++);
+            RitoConsole.PrintArray(intArray1);
+
+            intArray1.Ex_ForeachRef((ref int a) => a++);
+            RitoConsole.PrintArray(intArray1);
+
+
+            int i1 = 1;
+            TestWrite(i1.Ex_Range(-1, 0), false);
+            TestWrite(i1.Ex_Range(-1, 1), true);
+            TestWrite(i1.Ex_Range(1, 1), true);
+            TestWrite(i1.Ex_Range(1, 4), true);
+            TestWrite(i1.Ex_Range(2, 4), false);
         }
 
 
