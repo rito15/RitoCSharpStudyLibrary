@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 
 namespace Rito
 {
-    /// <summary>
-    /// 2020. 01. 21.
-    /// <para/> 모든 제네릭 컬렉션에 대해 for문을 foreach처럼 바로 쓸 수 있게 해주는 개꿀확장
-    /// </summary>
-    public static class ForeachExtention
-    {
+    // 2020. 01. 26. 최초 작성 + 테스트 완료
 
-        #region Declarations
+    /// <summary>
+    /// 2020. 01. 26.
+    /// <para/> 모든 제네릭 컬렉션에 대해 for문을 foreach처럼 바로 쓸 수 있도록 확장 제공
+    /// <para/> -----------------------------------------------------------------------------------
+    /// <para/> [목록]
+    /// <para/> Ex_Foreach(콜백 메소드)
+    /// <para/> Ex_ForeachRef(ref 타입 콜백 메소드)
+    /// <para/> 
+    /// <para/> 
+    /// </summary>
+    public static class ForeachExtension
+    {
         public delegate void refCallBack<T>(ref T param);
-        #endregion
 
         #region Foreach<T>
 
@@ -56,16 +61,15 @@ namespace Rito
         /// <summary>
         /// 간편한 Foreach 순회<para/>
         /// ★ Value Type을 순회할 때 값을 변경할 수 없는 한계점 보완<para/>
-        /// .<para/>
+        /// ------------------------------------------------------------------<para/>
         /// [사용 예시]<para/>
         /// int[] intArr1 = new int[10]; int index = 0;<para/>
         /// intArr1.Ex_ForeachRef((ref int a) => a = index++);<para/>
         /// => 원래는 각 배열 요소에 초기화가 안됨, ref로는 가능<para/>
-        /// .<para/>
+        /// ------------------------------------------------------------------<para/>
         /// 리턴 : array
         /// </summary>
-        /// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-        public static T[] Ex_Foreach<T>(this T[] array, in refCallBack<T> method)
+        public static T[] Ex_ForeachRef<T>(this T[] array, in refCallBack<T> method)
         {
             int len = array.Length;
 

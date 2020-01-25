@@ -25,7 +25,10 @@ namespace RitoCSharpLibrary
             //    s.Run();
 
             //Main_7();
-            Main_2020_01_21_ForeachExtention();
+            //Main_2020_01_21_ForeachExtension();
+            //Main_2020_01_25_Extensions();
+            Main_2020_01_26_Extensions();
+
         }
 
         public static void Main_1(string[] args)
@@ -121,7 +124,7 @@ namespace RitoCSharpLibrary
             Console.WriteLine(RitoRegex.IsOnlyDigit("1234"));
             Console.WriteLine(RitoRegex.IsOnlyLowerCase("avca"));
 
-            Console.WriteLine(RitoRegex.CheckFormat("-122.0", RitoRegex._FloatNumberFormat));
+            Console.WriteLine(RitoRegex.CheckFormat("-122.0", RitoRegex._RealNumberFormat));
             Console.WriteLine(RitoRegex.CheckFormat("010-2123-3414", RitoRegex._PhoneNumberFormat));
             Console.WriteLine(RitoRegex.CheckFormat("AAAB", new System.Text.RegularExpressions.Regex(@"^A*B$")));
 
@@ -294,15 +297,310 @@ namespace RitoCSharpLibrary
             Console.WriteLine(RitoRegex.Replace(org1, new string[] { "ri", "o" }, '*', false));
         }
 
-        public static void Main_2020_01_21_ForeachExtention()
+        public static void Main_2020_01_21_ForeachExtension()
         {
             int[] arr = { 0, 1, 2, 3, 4, 5 };
 
             arr.Ex_Foreach((a) => { a++; });
             RitoConsole.PrintArray(arr);
 
-            arr.Ex_Foreach((ref int a) => { a++; });
+            arr.Ex_ForeachRef((ref int a) => { a++; });
             RitoConsole.PrintArray(arr);
+        }
+
+        public static void Main_2020_01_25_Extensions()
+        {
+            Console.WriteLine("========================Clamp========================");
+            int    i10 = 10, i15 = 15, i20 = 20;
+            float  f10 = 10, f15 = 15, f20 = 20;
+            double d10 = 10, d15 = 15, d20 = 20;
+
+            // 1. Clamp 동작 확인
+            TestWrite(i10.Ex_Clamp(15,20), 15, false);
+            TestWrite(i15.Ex_Clamp(0, 10), 10, false);
+            TestWrite(f10.Ex_Clamp(15,20), 15, false);
+            TestWrite(f15.Ex_Clamp(0, 10), 10, false);
+            TestWrite(d10.Ex_Clamp(15,20), 15, false);
+            TestWrite(d15.Ex_Clamp(0, 10), 10, false);
+
+            // 2. ref로 값 변경되는지 확인
+            TestWrite(i10, 15, false);
+            TestWrite(f10, 15, false);
+            TestWrite(d10, 15, false);
+
+            Console.WriteLine("========================POW========================");
+            int a = 5; float b = 6f; double c = 7.0;
+
+            TestWrite(a.Ex_Pow(3), 125, false);
+            TestWrite(b.Ex_Pow(3), 216, false);
+            TestWrite(c.Ex_Pow(2), 49, false);
+
+            Console.WriteLine("========================Digitalize========================");
+            int    i_10 = -10, i0 = 0; i10 = 10;
+            float  f_10 = -10, f0 = 0; f10 = 10;
+            double d_10 = -10, d0 = 0; d10 = 10;
+
+            TestWrite(i_10.Ex_Digitalize(), 1, false);
+            TestWrite(i0.Ex_Digitalize(),   0, false);
+            TestWrite(i10.Ex_Digitalize(),  1, false);
+
+            TestWrite(f_10.Ex_Digitalize(), 1, false);
+            TestWrite(f0.Ex_Digitalize(),   0, false);
+            TestWrite(f10.Ex_Digitalize(),  1, false);
+
+            TestWrite(d_10.Ex_Digitalize(), 1, false);
+            TestWrite(d0.Ex_Digitalize(),   0, false);
+            TestWrite(d10.Ex_Digitalize(),  1, false);
+
+            TestWrite(i_10.Ex_SignedDigitalize(), -1, false);
+            TestWrite(i0.Ex_SignedDigitalize(),   0, false);
+            TestWrite(i10.Ex_SignedDigitalize(),  1, false);
+
+            TestWrite(f_10.Ex_SignedDigitalize(), -1, false);
+            TestWrite(f0.Ex_SignedDigitalize(),   0, false);
+            TestWrite(f10.Ex_SignedDigitalize(),  1, false);
+
+            TestWrite(d_10.Ex_SignedDigitalize(), -1, false);
+            TestWrite(d0.Ex_SignedDigitalize(),   0, false);
+            TestWrite(d10.Ex_SignedDigitalize(),  1, false);
+
+
+            Console.WriteLine("========================String Format Checkers========================");
+            
+            // 알파벳 대소문자
+            TestWrite("ABCabc".Ex_IsOnlyAlphabet(), true, false);
+            TestWrite("ABCABC".Ex_IsOnlyAlphabet(), true, false);
+            TestWrite("abcabc".Ex_IsOnlyAlphabet(), true, false);
+            TestWrite("ABC123".Ex_IsOnlyAlphabet(), false, false);
+            TestWrite("abc123".Ex_IsOnlyAlphabet(), false, false);
+            TestWrite("123123".Ex_IsOnlyAlphabet(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyAlphabet(), false, false);
+
+
+            // 대문자
+            TestWrite("ABCABC".Ex_IsOnlyUpperAlphabet(), true, false);
+            TestWrite("ABCabc".Ex_IsOnlyUpperAlphabet(), false, false);
+            TestWrite("abcabc".Ex_IsOnlyUpperAlphabet(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyUpperAlphabet(), false, false);
+            TestWrite("abc123".Ex_IsOnlyUpperAlphabet(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyUpperAlphabet(), false, false);
+
+
+            // 소문자
+            TestWrite("abcabc".Ex_IsOnlyLowerAlphabet(), true, false);
+            TestWrite("ABCABC".Ex_IsOnlyLowerAlphabet(), false, false);
+            TestWrite("ABCabc".Ex_IsOnlyLowerAlphabet(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyLowerAlphabet(), false, false);
+            TestWrite("abc123".Ex_IsOnlyLowerAlphabet(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyLowerAlphabet(), false, false);
+
+
+            // 알파벳 대소문자, 정수
+            TestWrite("abcabc".Ex_IsOnlyAlphaDigit(), true, false);
+            TestWrite("ABCABC".Ex_IsOnlyAlphaDigit(), true, false);
+            TestWrite("ABCabc".Ex_IsOnlyAlphaDigit(), true, false);
+            TestWrite("ABC123".Ex_IsOnlyAlphaDigit(), true, false);
+            TestWrite("abc123".Ex_IsOnlyAlphaDigit(), true, false);
+            TestWrite("123123".Ex_IsOnlyAlphaDigit(), true, false);
+            TestWrite("ABab_+".Ex_IsOnlyAlphaDigit(), false, false);
+
+
+            // 양의 정수(0~9)
+            TestWrite("123123".Ex_IsOnlyDigit(), true, false);
+            TestWrite("123.23".Ex_IsOnlyDigit(), false, false);
+            TestWrite("abcabc".Ex_IsOnlyDigit(), false, false);
+            TestWrite("ABCABC".Ex_IsOnlyDigit(), false, false);
+            TestWrite("ABCabc".Ex_IsOnlyDigit(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyDigit(), false, false);
+            TestWrite("abc123".Ex_IsOnlyDigit(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyDigit(), false, false);
+            TestWrite("-23123".Ex_IsOnlyDigit(), false, false);
+
+
+            // 양, 음의 정수
+            TestWrite("123123".Ex_IsOnlyInteger(), true, false);
+            TestWrite("-23123".Ex_IsOnlyInteger(), true, false);
+            TestWrite("+23123".Ex_IsOnlyInteger(), true, false);
+            TestWrite("23-123".Ex_IsOnlyInteger(), false, false);
+            TestWrite("23.123".Ex_IsOnlyInteger(), false, false);
+            TestWrite("-3.123".Ex_IsOnlyInteger(), false, false);
+            TestWrite("abcabc".Ex_IsOnlyInteger(), false, false);
+            TestWrite("ABCABC".Ex_IsOnlyInteger(), false, false);
+            TestWrite("ABCabc".Ex_IsOnlyInteger(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyInteger(), false, false);
+            TestWrite("abc123".Ex_IsOnlyInteger(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyInteger(), false, false);
+
+
+            // 양, 음의 실수
+            TestWrite("123.123".Ex_IsOnlyRealNumber(), true, false);
+            TestWrite("+23.123".Ex_IsOnlyRealNumber(), true, false);
+            TestWrite("-23.123".Ex_IsOnlyRealNumber(), true, false);
+            TestWrite("1231231".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("-231231".Ex_IsOnlyRealNumber(), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("+231231".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite(".231231".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("123123.".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("123+231".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("23-1231".Ex_IsOnlyRealNumber(), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("abcabc".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("ABCABC".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("ABCabc".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("abc123".Ex_IsOnlyRealNumber(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyRealNumber(), false, false);
+            //Console.WriteLine("");
+
+
+            // 양, 음의 정수, 실수
+            TestWrite("123.123".Ex_IsOnlyNumber(), true, false);
+            TestWrite("+23.123".Ex_IsOnlyNumber(), true, false);
+            TestWrite("-23.123".Ex_IsOnlyNumber(), true, false);
+            TestWrite("1231231".Ex_IsOnlyNumber(), true, false);
+            TestWrite("-231231".Ex_IsOnlyNumber(), true, false);
+            //Console.WriteLine("");
+
+            TestWrite("+23123".Ex_IsOnlyNumber(), true, false);
+            TestWrite(".23123".Ex_IsOnlyNumber(), false, false);
+            TestWrite("12312.".Ex_IsOnlyNumber(), false, false);
+            TestWrite("123+23".Ex_IsOnlyNumber(), false, false);
+            TestWrite("23-123".Ex_IsOnlyNumber(), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("abcabc".Ex_IsOnlyNumber(), false, false);
+            TestWrite("ABCABC".Ex_IsOnlyNumber(), false, false);
+            TestWrite("ABCabc".Ex_IsOnlyNumber(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyNumber(), false, false);
+            TestWrite("abc123".Ex_IsOnlyNumber(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyNumber(), false, false);
+            //Console.WriteLine("");
+
+
+            // 양의 정수, 실수
+            TestWrite("123.123".Ex_IsOnlyPositiveNumber(), true, false);
+            TestWrite("+23.123".Ex_IsOnlyPositiveNumber(), true, false);
+            TestWrite("1231231".Ex_IsOnlyPositiveNumber(), true, false);
+            TestWrite("+231231".Ex_IsOnlyPositiveNumber(), true, false);
+            TestWrite("+23123.".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("-23.123".Ex_IsOnlyPositiveNumber(), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("-23123".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite(".23123".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("12312.".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("123+23".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("23-123".Ex_IsOnlyPositiveNumber(), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("abcabc".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("ABCABC".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("ABCabc".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("abc123".Ex_IsOnlyPositiveNumber(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyPositiveNumber(), false, false);
+            //Console.WriteLine("");
+
+
+            // 음의 정수, 실수
+            TestWrite("-23.123".Ex_IsOnlyNegativeNumber(), true, false);
+            TestWrite("-231231".Ex_IsOnlyNegativeNumber(), true, false);
+            TestWrite("-1".Ex_IsOnlyNegativeNumber(),      true, false);
+            TestWrite("-1.0".Ex_IsOnlyNegativeNumber(),    true, false);
+            TestWrite("-2.3123".Ex_IsOnlyNegativeNumber(), true, false);
+            //Console.WriteLine("");
+
+            TestWrite("-1.2.2".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("+23123".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite(".23123".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("12312.".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("123+23".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("23-123".Ex_IsOnlyNegativeNumber(), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("abcabc".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("ABCABC".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("ABCabc".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("ABC123".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("abc123".Ex_IsOnlyNegativeNumber(), false, false);
+            TestWrite("ABab_+".Ex_IsOnlyNegativeNumber(), false, false);
+            //Console.WriteLine("");
+
+
+            Console.WriteLine("========================Equals, Contains========================");
+
+            TestWrite("aBcDEfghiJkL".Ex_Equals("aBcDEfghiJkL", true), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("ABCDEFGHIJKL", true), false, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("abcdefghijkl", true), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("aBcDEfghiJkL".Ex_Equals("aBcDEfghiJkL"), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("ABCDEFGHIJKL"), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("abcdefghijkl"), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("abcde"),  false, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("ghijkl"), false, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("ABCDE"),  false, false);
+            TestWrite("aBcDEfghiJkL".Ex_Equals("JKL"),    false, false);
+            //Console.WriteLine("");
+
+            TestWrite("aBcDEfghiJkL".Ex_Contains("cDEfghi", true), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Contains("CDEFGHI", true), false, false);
+            TestWrite("aBcDEfghiJkL".Ex_Contains("cdefghi", true), false, false);
+            //Console.WriteLine("");
+
+            TestWrite("aBcDEfghiJkL".Ex_Contains("cDEfghi"), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Contains("CDEFGHI"), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Contains("cdefghi"), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Contains("abc"), true, false);
+            TestWrite("aBcDEfghiJkL".Ex_Contains("jkl"), true, false);
+            //Console.WriteLine("");
+
+
+            Console.WriteLine("========================Equals, Contains========================");
+
+            Console.WriteLine("Abcd aBaAcd".Replace("a", "_"));
+            Console.WriteLine("");
+
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace("a", "__"));
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace("a", "__", true));
+            Console.WriteLine("");
+
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace("abcd", ""));
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace("abcd", "", true));
+            Console.WriteLine("");
+
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace("ab", '_'));
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace("ab", '_', true));
+            Console.WriteLine("");
+
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace(new string[] {"ab", "da"}, '_'));
+            Console.WriteLine("ABCDA AbCda aBcDa abcdA".Ex_Replace(new string[] {"ab", "da"}, '_', true));
+        }
+
+        public static void Main_2020_01_26_Extensions()
+        {
+            var intList1 = new List<int> { 0, 1, 2, 3, 4, 5 };
+            RitoConsole.PrintArray(intList1);
+
+            intList1.ForEach(a => a++);
+            RitoConsole.PrintArray(intList1);
+        }
+
+
+
+        /// <summary>
+        /// 테스트 콘솔 출력 메소드
+        /// <para/> 입력 : 테스트 대상, 원하는 결과
+        /// <para/> 출력 : 출력 결과 + 테스트 성공 여부 (콘솔)
+        /// <para/> 
+        /// </summary>
+        public static void TestWrite<T>(T test, T result, bool print = true)
+        {
+            if(print)
+                Console.WriteLine($"[Test]   {test, -8} ===> {test.Equals(result)}");
         }
     }
 }

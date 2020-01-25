@@ -15,6 +15,5 @@ C:\Users\ghdtk\source\github\RitoCSharpStudyLibrary\RitoCSharpLibrary\bin\Debug\
 C:\Users\ghdtk\source\github\RitoCSharpStudyLibrary\RitoCSharpLibrary\bin\Debug\RitoCSharpLibrary.exe
 C:\Users\ghdtk\source\github\RitoCSharpStudyLibrary\RitoCSharpLibrary\bin\Debug\RitoCSharpLibrary.pdb
 C:\Users\ghdtk\source\github\RitoCSharpStudyLibrary\RitoCSharpLibrary\obj\Debug\RitoCSharpLibrary.csprojAssemblyReference.cache
-C:\Users\ghdtk\source\github\RitoCSharpStudyLibrary\RitoCSharpLibrary\obj\Debug\RitoCSharpLibrary.csproj.CoreCompileInputs.cache
 C:\Users\ghdtk\source\github\RitoCSharpStudyLibrary\RitoCSharpLibrary\obj\Debug\RitoCSharpLibrary.exe
 C:\Users\ghdtk\source\github\RitoCSharpStudyLibrary\RitoCSharpLibrary\obj\Debug\RitoCSharpLibrary.pdb

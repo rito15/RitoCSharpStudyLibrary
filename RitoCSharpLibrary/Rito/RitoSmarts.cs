@@ -49,7 +49,7 @@ namespace Rito
         /// <param name="array"></param>
         /// <param name="method">method : 파라미터 하나짜리 메소드 또는 람다</param>
         /// </summary>
-        public static IEnumerable<T> Foreach<T>(IEnumerable<T> enumList, Action<T> method)
+        public static IEnumerable<T> Foreach<T>(in IEnumerable<T> enumList, in Action<T> method)
         {
             var array = enumList.ToArray();
             Foreach(array, method);
@@ -61,7 +61,7 @@ namespace Rito
         /// 가변 파라미터 배열을 foreach로 즉시 순회<para/>
         /// 리턴 : array
         /// </summary>
-        public static T[] Foreach<T>(Action<T> method, params T[] array)
+        public static T[] Foreach<T>(in Action<T> method, params T[] array)
         {
             int len = array.Length;
 
@@ -87,7 +87,7 @@ namespace Rito
         /// 리턴 : array
         /// </summary>
         /// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
-        public static T[] ForeachRef<T>(T[] array, refCallBack<T> method)
+        public static T[] ForeachRef<T>(T[] array, in refCallBack<T> method)
         {
             int len = array.Length;
 
@@ -104,7 +104,7 @@ namespace Rito
         /// 사용 예시 : RitoSmarts.ForeachRef(ref intList, (ref int a) => a = 3);<para/>
         /// 리턴 : list
         /// </summary>
-        public static void ForeachRef<T>(ref List<T> list, refCallBack<T> method)
+        public static void ForeachRef<T>(ref List<T> list, in refCallBack<T> method)
         {
             var array = list.ToArray();
             int len = array.Length;

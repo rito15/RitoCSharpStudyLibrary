@@ -10,6 +10,7 @@ namespace Rito
     // 2019. 12. 15. 최초 작성
     // 2020. 01. 17. Substring, 디렉토리 및 파일명, 확장자 추출 메소드 추가
     // 2020. 01. 19. Find, Replace 메소드 추가
+    // 2020. 01. 25. 정규식 포맷 필드 수정( . -> \. )
 
     /// <summary>
     /// <para/> [정규식 문법]
@@ -52,6 +53,15 @@ namespace Rito
     /// <para/> 문자열 내의 . 가리키기 : "\."
     /// <para/> 문자열 내의 \ 가리키기 : "\\"
     /// <para/> 
+    /// <para/> 영숫자 : \w  ==  [A-Za-z0-9]
+    /// <para/> 영숫자 제외 모든 문자 : \W
+    /// <para/> 
+    /// <para/> 숫자 : \d  ==  [0-9]
+    /// <para/> 숫자 제외 모든 문자 : \D
+    /// <para/> 
+    /// <para/> 공백과 탭 : \s
+    /// <para/> 공백 제외 모든 문자 : \S
+    /// <para/> 
     /// </summary>
     static class RitoRegex
     {
@@ -62,16 +72,16 @@ namespace Rito
 
         #region 정규식 포맷 필드
 
-        public static readonly Regex _onlyAlphabet = new Regex(@"^[A-Za-z]+$");         // 알파벳만 포함
-        public static readonly Regex _onlyAlphabetUpperCase = new Regex(@"^[A-Z]+$");            // 알파벳 대문자만 포함
-        public static readonly Regex _onlyAlphabetLowerCase = new Regex(@"^[a-z]+$");            // 알파벳 소문자만 포함
-        public static readonly Regex _onlyAlphaDigit = new Regex(@"^[A-Za-z0-9]+$");      // 알파벳 + 숫자만 포함
-        public static readonly Regex _onlyDigit = new Regex(@"^[0-9]+$");            // 숫자만 포함
+        public static readonly Regex _onlyAlphabet = new Regex(@"^[A-Za-z]+$");       // 알파벳만 포함
+        public static readonly Regex _onlyAlphabetUpperCase = new Regex(@"^[A-Z]+$"); // 알파벳 대문자만 포함
+        public static readonly Regex _onlyAlphabetLowerCase = new Regex(@"^[a-z]+$"); // 알파벳 소문자만 포함
+        public static readonly Regex _onlyAlphaDigit = new Regex(@"^[A-Za-z0-9]+$");  // 알파벳 + 정수만 포함
+        public static readonly Regex _onlyDigit = new Regex(@"^[0-9]+$");             // 정수만 포함
 
-        public static readonly Regex _NumberFormat = new Regex(@"^-?[0-9]+$");                          // 정수(양수, 음수) 형식
-        public static readonly Regex _FloatNumberFormat = new Regex(@"^-?[0-9]+(.[0-9])?[0-9]*$");           // 실수 표현 형식(정수, 음수 포함)
+        public static readonly Regex _NumberFormat = new Regex(@"^(-|\+)?[0-9]+$");                          // 정수(양수, 음수) 형식
+        public static readonly Regex _RealNumberFormat = new Regex(@"^(-|\+)?(\d)+\.\d+$");                  // 실수 표현 형식(정수, 음수 포함)
         public static readonly Regex _PhoneNumberFormat = new Regex(@"^01[016-9]-[0-9]{4}-[0-9]{4}$");       // 휴대폰 번호 형식 : 010-1234-5678
-        public static readonly Regex _EmailFormat = new Regex(@"^[A-Za-z0-9]([-_.]?[0-9a-zA-Z])*@[A-Za-z0-9]+.[A-Za-z]{2,3}$");   // 메일 형식 : abc1234@site.com
+        public static readonly Regex _EmailFormat = new Regex(@"^[A-Za-z0-9]([-_\.]?[0-9a-zA-Z])*@[A-Za-z0-9]+\.[A-Za-z]{2,3}$");   // 메일 형식 : abc1234@site.com
 
         // 추가 예정 :
 
@@ -155,7 +165,7 @@ namespace Rito
         // 실수인지 검사
         public static bool IsFloatNumber(string prmStr)
         {
-            return _FloatNumberFormat.IsMatch(prmStr);
+            return _RealNumberFormat.IsMatch(prmStr);
         }
 
         // 핸드폰번호 형식인지 검사
@@ -331,6 +341,8 @@ namespace Rito
         #endregion // ==========================================================
 
         #region 문자열 교체 메소드
+
+        // * Replace는 string보다 Regex의 성능이 좋다
 
         /// <summary>
         /// 문자열 내의 부분 문자열을 다른 문자열로 변경하여 리턴
