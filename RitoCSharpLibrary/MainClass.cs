@@ -13,21 +13,25 @@ namespace RitoCSharpLibrary
         {
             Study.StudyClass[] sc =
             {
-                new Study.TupleStudy(),         // 191108 금
-                new Study.StringStudy(),        // 191110 일
-                new Study.IteratorStudy(),      // 191111 월 ~
-                new Study.LinqStudy(),          // 191118 월 ~
-                new Study.IndexerStudy(),       // 191216 월
-                new Study.PatternMatching(),    // 191218 수
+                new Study.TupleStudy(),             // 191108 금
+                new Study.StringStudy(),            // 191110 일
+                new Study.IteratorStudy(),          // 191111 월 ~
+                new Study.LinqStudy(),              // 191118 월 ~
+                new Study.IndexerStudy(),           // 191216 월
+                new Study.PatternMatchingStudy(),   // 191218 수
+                new Study.EnumStudy(),              // 200217 월
             };
 
-            //foreach (var s in sc)
-            //    s.Run();
+            foreach (var s in sc)
+            {
+                
+                s.Run();
+            }
 
             //Main_7();
             //Main_2020_01_21_ForeachExtension();
             //Main_2020_01_25_Extensions();
-            Main_2020_01_26_Extensions();
+            //Main_2020_01_26_Extensions();
 
         }
 

@@ -10,11 +10,11 @@ namespace RitoCSharpLibrary.Study
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/pattern-matching
     // http://www.csharpstudy.com/latest/CS7-pattern.aspx
     // https://happybono.wordpress.com/2019/05/21/c-pattern-matching-패턴-매칭에-대해-알아보자/
-    class PatternMatching : StudyClass
+    class PatternMatchingStudy : StudyClass
     {
         public override void Run()
         {
-            Method();
+            // base.Run();
         }
 
         protected override void Method()

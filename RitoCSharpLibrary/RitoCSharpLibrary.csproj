@@ -36,9 +36,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\ConsoleExtension.cs" />
     <Compile Include="Extensions\ForeachExtension.cs" />
     <Compile Include="Extensions\NumberExtension.cs" />
     <Compile Include="Extensions\StringRegexExtension.cs" />
+    <Compile Include="Extensions\TesterExtension.cs" />
     <Compile Include="MainClass.cs" />
     <Compile Include="Rito\RitoAdmin.cs" />
     <Compile Include="Rito\RitoConsole.cs" />
@@ -51,11 +53,12 @@
     <Compile Include="Rito\RitoSmarts.cs" />
     <Compile Include="Rito\RitoString.cs" />
     <Compile Include="Rito\RitoTester.cs" />
+    <Compile Include="Study\EnumStudy.cs" />
     <Compile Include="Study\IndexerStudy.cs" />
     <Compile Include="Study\IteratorStudy.cs" />
     <Compile Include="Study\LinqStudy.cs" />
     <Compile Include="Study\OperatorOverloadingStudy.cs" />
-    <Compile Include="Study\PatternMatching.cs" />
+    <Compile Include="Study\PatternMatchingStudy.cs" />
     <Compile Include="Study\StringStudy.cs" />
     <Compile Include="Study\Parent\StudyClass.cs" />
     <Compile Include="Study\TupleStudy.cs" />

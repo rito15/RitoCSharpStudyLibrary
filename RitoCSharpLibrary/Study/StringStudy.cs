@@ -12,7 +12,7 @@ namespace RitoCSharpLibrary.Study
     {
         public override void Run()
         {
-            // Method();
+            // base.Run();
         }
 
         protected override void Method()

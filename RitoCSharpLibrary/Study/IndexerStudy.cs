@@ -7,11 +7,12 @@ using Rito;
 
 namespace RitoCSharpLibrary.Study
 {
+    // 191216 월
     class IndexerStudy : StudyClass
     {
         public override void Run()
         {
-            //Method();
+            // base.Run();
         }
 
         protected override void Method()

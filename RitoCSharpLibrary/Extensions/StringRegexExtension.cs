@@ -8,7 +8,9 @@ using System.Text.RegularExpressions;   // Regex
 namespace Rito
 {
     // 2020. 01. 26. 최초 작성
-    // 2020. 01. 26 IsOnly~, CheckFormat, Equals, Contains, Replace 모두 테스트 완료
+    // 2020. 01. 26. IsOnly~, CheckFormat, Equals, Contains, Replace 모두 테스트 완료
+    // 2020. 02. 17. Ex_SubstringLeft(), Ex_SubstringRight() 작성, 테스트 완료
+    // 2020. 02. 18. Ex_Repeat() 작성, 테스트 완료
 
     /// <summary>
     /// 2020. 01. 26.
@@ -20,6 +22,8 @@ namespace Rito
     /// <para/> Ex_Equals : Equals()와 같지만, 대소문자 구분 여부 선택 가능(기본: X)
     /// <para/> Ex_Contains : Contains()와 같지만, 대소문자 구분 여부 선택 가능(기본: X)
     /// <para/> Ex_Replace : 대상 문자열을 문자열 또는 문자로 변환, 대소문자 구분 여부 선택 가능(기본: X)
+    /// <para/> Ex_SubstringLeft : 문자열의 시작부터 특정 문자열까지 서브스트링 리턴
+    /// <para/> Ex_SubstringRight : 문자열의 특정 분자열부터 끝부분까지 서브스트링 리턴
     /// <para/> 
     /// <para/> 
     /// </summary>
@@ -333,6 +337,79 @@ namespace Rito
                 value = Regex.Replace(value, target[i], replaceString);
             }
             return value;
+        }
+
+        #endregion // ==========================================================
+
+        #region Substring
+
+        /// <summary> 
+        /// 문자열 내의 첫부분부터 특정 문자열까지의 서브스트링
+        /// <para/> -----------------------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> * subString : 서브스트링이 시작될 문자열
+        /// <para/> * containSub : subString을 포함할지 여부
+        /// <para/> -----------------------------------------------------------------
+        /// <para/> * 예시 : "abcdAbcd".Ex_SubstringLeft("A") => "abcdA"
+        /// <para/> * 예시 : "abcdAbcd".Ex_SubstringLeft("A", false) => "abcd"
+        /// </summary>
+        public static string Ex_SubstringLeft(this string target, in string subString, in bool containSub = true)
+        {
+            int firstIndex = target.IndexOf(subString);
+
+            if (firstIndex > -1)
+            {
+                if (containSub)
+                    return target.Substring(0, firstIndex + subString.Length);
+                else
+                    return target.Substring(0, firstIndex);
+            }
+
+            return target;
+        }
+
+        /// <summary> 
+        /// 문자열 내의 특정한 문자열부터 끝부분까지의 서브스트링
+        /// <para/> -----------------------------------------------------------------
+        /// <para/> [파라미터]
+        /// <para/> * subString : 서브스트링이 시작될 문자열
+        /// <para/> * containLast : subString을 포함할지 여부
+        /// <para/> -----------------------------------------------------------------
+        /// <para/> * 예시 : "abcdAbcd".Ex_SubstringRight("A") => "Abcd"
+        /// <para/> * 예시 : "abcdAbcd".Ex_SubstringRight("A", false) => "bcd"
+        /// </summary>
+        public static string Ex_SubstringRight(this string target, in string subString, in bool containSub = true)
+        {
+            int lastIndex = target.LastIndexOf(subString);
+
+            if (lastIndex > -1)
+            {
+                if (containSub)
+                    return target.Substring(lastIndex);
+                else
+                    return target.Substring(lastIndex + subString.Length);
+            }
+
+            return target;
+        }
+
+        #endregion // ==========================================================
+
+        #region Cute Extensions (string)
+
+        /// <summary>
+        /// <para/> 해당 스트링을 n회 반복한 스트링 리턴
+        /// <para/> * count : 반복 횟수 (1이면 원본과 동일)
+        /// </summary>
+        public static string Ex_Repeat(this string target, int count = 2)
+        {
+            if (count < 1) count = 1;
+            StringBuilder sb = new StringBuilder();
+
+            for(int i = 0; i < count; i++)
+                sb.Append(target);
+
+            return sb.ToString();
         }
 
         #endregion // ==========================================================
