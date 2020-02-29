@@ -8,7 +8,7 @@ namespace RitoCSharpLibrary.Study
 {
     // 191110 일
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/tokens/interpolated
-    class StringStudy : StudyClass
+    class StringStudy : StudyBase
     {
         public override void Run()
         {

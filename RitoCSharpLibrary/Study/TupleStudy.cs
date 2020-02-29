@@ -8,7 +8,7 @@ namespace RitoCSharpLibrary.Study
 {
     // 191108 금
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/tuples
-    class TupleStudy : StudyClass
+    class TupleStudy : StudyBase
     {
         public override void Run()
         {

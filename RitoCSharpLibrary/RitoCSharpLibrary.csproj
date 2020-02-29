@@ -59,8 +59,9 @@
     <Compile Include="Study\LinqStudy.cs" />
     <Compile Include="Study\OperatorOverloadingStudy.cs" />
     <Compile Include="Study\PatternMatchingStudy.cs" />
+    <Compile Include="Study\ReflectionStudy.cs" />
     <Compile Include="Study\StringStudy.cs" />
-    <Compile Include="Study\Parent\StudyClass.cs" />
+    <Compile Include="Study\Parent\StudyBase.cs" />
     <Compile Include="Study\TupleStudy.cs" />
   </ItemGroup>
   <ItemGroup>

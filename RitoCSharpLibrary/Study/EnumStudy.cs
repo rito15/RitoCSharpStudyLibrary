@@ -9,11 +9,11 @@ namespace RitoCSharpLibrary.Study
 {
     // 2020. 02. 17. 월
     // enum [Flags] 공부
-    class EnumStudy : StudyClass
+    class EnumStudy : StudyBase
     {
         public override void Run()
         {
-            base.Run();
+            //base.Run();
         }
 
         enum Status
@@ -67,12 +67,12 @@ namespace RitoCSharpLibrary.Study
             Console.WriteLine("Has Moving  : " + fStat2.HasFlag(FlagStatus2.Moving));
             Console.WriteLine("Has Jumping : " + fStat2.HasFlag(FlagStatus2.Jumping));
             Console.WriteLine("Has Eating  : " + fStat2.HasFlag(FlagStatus2.Eating));
-            Console.WriteLine("Has Mix1    : " + fStat2.HasFlag(FlagStatus2.Mix1));0.Enter();
+            Console.WriteLine("Has Mix1    : " + fStat2.HasFlag(FlagStatus2.Mix1));0.Ex_Enter();
             Console.WriteLine("Jumping | Eating : " + (FlagStatus2.Jumping | FlagStatus2.Eating));
 
-            0.Enter();
-            0.PrintLine(80, true);
-            0.PrintDooubleLine(80, true);
+            0.Ex_Enter();
+            0.Ex_PrintLine(80, true);
+            0.Ex_PrintDooubleLine(80, true);
             fStat2.HasFlag(FlagStatus2.Mix1).Test_CheckOnConsole(true, "fStat2.HasFlag(FlagStatus2.Mix1)");
         }
     }

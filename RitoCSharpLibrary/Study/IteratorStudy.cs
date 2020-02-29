@@ -8,7 +8,7 @@ namespace RitoCSharpLibrary.Study
 {
     // 191111 월 : 열거자
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/iterators
-    class IteratorStudy : StudyClass
+    class IteratorStudy : StudyBase
     {
         public override void Run()
         {

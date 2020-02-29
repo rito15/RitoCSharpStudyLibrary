@@ -16,6 +16,7 @@ namespace Rito
     public static class TesterExtension
     {
         /// <summary>
+        /// <para/> * 제네릭 확장
         /// <para/> 테스트 콘솔 출력 메소드
         /// <para/> ---------------------------------------------
         /// <para/> [파라미터]

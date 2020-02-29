@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RitoCSharpLibrary.Study
 {
     // 191118,
-    class LinqStudy : StudyClass
+    class LinqStudy : StudyBase
     {
         public override void Run()
         {

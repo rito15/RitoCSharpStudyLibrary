@@ -11,7 +11,7 @@ namespace RitoCSharpLibrary
     {
         public static void Main()
         {
-            Study.StudyClass[] sc =
+            Study.StudyBase[] sc =
             {
                 new Study.TupleStudy(),             // 191108 금
                 new Study.StringStudy(),            // 191110 일
@@ -20,6 +20,7 @@ namespace RitoCSharpLibrary
                 new Study.IndexerStudy(),           // 191216 월
                 new Study.PatternMatchingStudy(),   // 191218 수
                 new Study.EnumStudy(),              // 200217 월
+                new Study.ReflectionStudy(),        // 200229 토
             };
 
             foreach (var s in sc)
@@ -34,6 +35,8 @@ namespace RitoCSharpLibrary
             //Main_2020_01_26_Extensions();
 
         }
+
+        #region Previous Main Methods
 
         public static void Main_1(string[] args)
         {
@@ -611,6 +614,7 @@ namespace RitoCSharpLibrary
             TestWrite(i1.Ex_Range(2, 4), false);
         }
 
+        #endregion // ==========================================================
 
 
         /// <summary>

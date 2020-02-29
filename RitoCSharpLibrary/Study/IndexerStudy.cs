@@ -8,7 +8,7 @@ using Rito;
 namespace RitoCSharpLibrary.Study
 {
     // 191216 월
-    class IndexerStudy : StudyClass
+    class IndexerStudy : StudyBase
     {
         public override void Run()
         {

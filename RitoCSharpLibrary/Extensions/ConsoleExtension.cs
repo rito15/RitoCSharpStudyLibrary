@@ -22,7 +22,7 @@ namespace Rito
         /// <para/> [사용 예시]
         /// <para/> 0.Enter();
         /// </summary>
-        public static void Enter<T>(this T target, in int count = 1)
+        public static void Ex_Enter<T>(this T target, in int count = 1)
         {
             StringBuilder sb = new StringBuilder("");
             for (int i = 0; i < count; i++)
@@ -41,7 +41,7 @@ namespace Rito
         /// <para/> 0.PrintLine(20);
         /// <para/> 0.PrintLine(20, true);
         /// </summary>
-        public static void PrintLine<T>(this T target, in int len = 10, in bool newLine = false)
+        public static void Ex_PrintLine<T>(this T target, in int len = 10, in bool newLine = false)
         {
             StringBuilder sb = new StringBuilder("");
 
@@ -61,7 +61,7 @@ namespace Rito
         /// <para/> 0.PrintDooubleLine(20);
         /// <para/> 0.PrintDooubleLine(20, true);
         /// </summary>
-        public static void PrintDooubleLine<T>(this T target, in int len = 10, in bool newLine = false)
+        public static void Ex_PrintDooubleLine<T>(this T target, in int len = 10, in bool newLine = false)
         {
             StringBuilder sb = new StringBuilder("");
 

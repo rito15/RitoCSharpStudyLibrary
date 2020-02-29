@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace RitoCSharpLibrary.Study
 {
     // 191227
-    class OperatorOverloadingStudy : StudyClass
+    class OperatorOverloadingStudy : StudyBase
     {
         public override void Run()
         {
