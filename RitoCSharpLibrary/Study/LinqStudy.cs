@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rito;
 
 namespace RitoCSharpLibrary.Study
 {
-    // 191118,
+    // 191118
+
+    //[RitoStudyClass("LINQ")]
     class LinqStudy : StudyBase
     {
         public override void Run()
@@ -14,6 +17,7 @@ namespace RitoCSharpLibrary.Study
             // base.Run();
         }
 
+        [RitoStudyMethod]
         protected override void Method()
         {
             int[] intArr = { 0, 1, 2, 3, 4, 5, 6 };

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rito;
 
 namespace RitoCSharpLibrary.Study
 {
     // 191111 월 : 열거자
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/iterators
+
+    //[RitoStudyClass("열거자, 반복기 - IEnums")]
     class IteratorStudy : StudyBase
     {
         public override void Run()
@@ -15,7 +18,7 @@ namespace RitoCSharpLibrary.Study
             // base.Run();
         }
 
-        ///<summary>설명</summary>
+        [RitoStudyMethod]
         protected override void Method()
         {
             /*

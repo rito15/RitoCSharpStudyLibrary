@@ -8,7 +8,8 @@ using Rito;
 namespace RitoCSharpLibrary.Study
 {
     // 2020. 02. 17. 월
-    // enum [Flags] 공부
+
+    //[RitoStudyClass("Enum [Flags]")]
     class EnumStudy : StudyBase
     {
         public override void Run()
@@ -42,6 +43,7 @@ namespace RitoCSharpLibrary.Study
             Mix2 = 5,   // 1(Moving) + 4(Eating)
         }
         
+        [RitoStudyMethod]
         protected override void Method()
         {
             Status stat = Status.Moving | Status.Jumping;

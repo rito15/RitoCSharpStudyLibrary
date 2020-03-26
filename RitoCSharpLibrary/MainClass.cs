@@ -9,31 +9,51 @@ namespace RitoCSharpLibrary
 {
     class MainClass
     {
+        // .cs 속성 - 빌드작업 [컴파일] / [없음] 택1
         public static void Main()
         {
-            Study.StudyBase[] sc =
-            {
-                new Study.TupleStudy(),             // 191108 금
-                new Study.StringStudy(),            // 191110 일
-                new Study.IteratorStudy(),          // 191111 월 ~
-                new Study.LinqStudy(),              // 191118 월 ~
-                new Study.IndexerStudy(),           // 191216 월
-                new Study.PatternMatchingStudy(),   // 191218 수
-                new Study.EnumStudy(),              // 200217 월
-                new Study.ReflectionStudy(),        // 200229 토
-            };
+            //Study.StudyBase[] sc =
+            //{
+            //    new Study.TupleStudy(),             // 191108 금
+            //    new Study.StringStudy(),            // 191110 일
+            //    new Study.IteratorStudy(),          // 191111 월 ~
+            //    new Study.LinqStudy(),              // 191118 월 ~
+            //    new Study.IndexerStudy(),           // 191216 월
+            //    new Study.PatternMatchingStudy(),   // 191218 수
+            //    new Study.EnumStudy(),              // 200217 월
+            //    new Study.ReflectionStudy(),        // 200229 토
+            //};
 
-            foreach (var s in sc)
-            {
-                
-                s.Run();
-            }
+            //foreach (var s in sc)
+            //{
+            //    s.Run();
+            //}
 
             //Main_7();
             //Main_2020_01_21_ForeachExtension();
             //Main_2020_01_25_Extensions();
             //Main_2020_01_26_Extensions();
 
+            var studyList = typeof(RitoStudyClassAttribute).Ex_GetAttributeUsedClasses("Study");
+
+            foreach (var type in studyList)
+            {
+                object instance = Activator.CreateInstance(type);
+                var attrs = type.GetCustomAttributes(typeof(RitoStudyClassAttribute), false);
+
+                foreach (var attr in attrs)
+                {
+                    (attr as RitoStudyClassAttribute)?.PrintTitle();
+                }
+
+                foreach (var method in type.Ex_GetAttributeUsedMethods(typeof(RitoStudyMethodAttribute)))
+                {
+                    Console.WriteLine($"<{method.methodInfo.Name}>");
+                    method.methodInfo.Invoke(instance, new object[] { });
+
+                    Console.WriteLine("");
+                }
+            }
         }
 
         #region Previous Main Methods

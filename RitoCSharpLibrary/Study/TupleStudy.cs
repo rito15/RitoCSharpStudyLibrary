@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rito;
 
 namespace RitoCSharpLibrary.Study
 {
     // 191108 금
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/tuples
+
+    //[RitoStudyClass("튜플")]
     class TupleStudy : StudyBase
     {
         public override void Run()
@@ -15,6 +18,7 @@ namespace RitoCSharpLibrary.Study
             // base.Run();
         }
 
+        [RitoStudyMethod]
         protected override void Method()
         {
             // 1. 튜플의 기본 : 이름 없는 튜플 & 이름 있는 튜플

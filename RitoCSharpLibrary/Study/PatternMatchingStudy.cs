@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rito;
 
 namespace RitoCSharpLibrary.Study
 {
@@ -10,6 +11,8 @@ namespace RitoCSharpLibrary.Study
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/pattern-matching
     // http://www.csharpstudy.com/latest/CS7-pattern.aspx
     // https://happybono.wordpress.com/2019/05/21/c-pattern-matching-패턴-매칭에-대해-알아보자/
+    
+    //[RitoStudyClass("패턴 매칭(상수, 타입)")]
     class PatternMatchingStudy : StudyBase
     {
         public override void Run()
@@ -17,6 +20,7 @@ namespace RitoCSharpLibrary.Study
             // base.Run();
         }
 
+        [RitoStudyMethod]
         protected override void Method()
         {
             CheckMethod(null);

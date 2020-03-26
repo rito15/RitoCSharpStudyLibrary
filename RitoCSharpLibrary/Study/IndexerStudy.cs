@@ -8,6 +8,7 @@ using Rito;
 namespace RitoCSharpLibrary.Study
 {
     // 191216 월
+    //[RitoStudyClass("인덱서")]
     class IndexerStudy : StudyBase
     {
         public override void Run()
@@ -15,6 +16,7 @@ namespace RitoCSharpLibrary.Study
             // base.Run();
         }
 
+        [RitoStudyMethod]
         protected override void Method()
         {
             DataArrayClass dac = new DataArrayClass();

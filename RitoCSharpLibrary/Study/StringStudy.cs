@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Rito;
 
 namespace RitoCSharpLibrary.Study
 {
     // 191110 일
     // https://docs.microsoft.com/ko-kr/dotnet/csharp/language-reference/tokens/interpolated
+    
+    //[RitoStudyClass("스트링 포맷팅")]
     class StringStudy : StudyBase
     {
         public override void Run()
@@ -15,6 +18,7 @@ namespace RitoCSharpLibrary.Study
             // base.Run();
         }
 
+        [RitoStudyMethod]
         protected override void Method()
         {
             // 1. 스트링 포맷팅 방법 1

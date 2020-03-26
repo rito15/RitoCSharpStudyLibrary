@@ -539,5 +539,63 @@ namespace Rito
         }
 
         #endregion // ==========================================================
+
+        #region Get Wanted Classes
+
+        /// <summary>
+        /// <para/> 해당 애트리뷰트를 클래스 위에 명시한 클래스들만 가져오기
+        /// <para/> * nameSpace를 지정할 경우 : 해당 이름을 포함하는 네임스페이스 범위로 한정
+        /// <para/> * 호출 객체가 Attribute 상속 타입이 아닌 경우 -> 무조건 null 리턴
+        /// </summary>
+        public static List<Type> Ex_GetAttributeUsedClasses(this Type attributeType, in string nameSpace="")
+        {
+            if (attributeType.IsSubclassOf(typeof(Attribute)) == false)
+                return null;
+
+            List<Type> typeList = new List<Type>();
+            foreach (Type t in Assembly.GetExecutingAssembly().GetTypes())
+            {
+                if (t.Namespace == null) continue;
+
+                if(nameSpace.Length > 0)
+                {
+                    if (t.Namespace.Contains(nameSpace) &&
+                        t.GetCustomAttribute<RitoStudyClassAttribute>() != null)
+                        typeList.Add(t);
+                }
+                else
+                {
+                    if (t.GetCustomAttribute<RitoStudyClassAttribute>() != null)
+                        typeList.Add(t);
+                }
+                
+            }
+            return typeList;
+        }
+
+        /// <summary>
+        /// <para/> 클래스 내에서 특정 애트리뷰트를 지정한 메소드들만 가져오기
+        /// <para/> * 리턴 : List&lt;MethodInfo, Attribute&gt;
+        /// </summary>
+        public static List<(MethodInfo methodInfo, Attribute attribute)> Ex_GetAttributeUsedMethods(this Type classType,
+            in Type methodAttributeType, in string nameSpace="")
+        {
+            if (methodAttributeType.IsSubclassOf(typeof(Attribute)) == false)
+                return null;
+
+            List<(MethodInfo methodInfo, Attribute attribute)> maList
+                = new List<(MethodInfo, Attribute)>();
+            foreach (MethodInfo mInfo in classType.Ex_Rf_GetAllMethods())
+            {
+                var mAttribute = mInfo.GetCustomAttribute(methodAttributeType);
+                if (mAttribute != null)
+                    maList.Add((mInfo, mAttribute));
+            }
+            return maList;
+        }
+
+
+
+        #endregion // ==========================================================
     }
 }
