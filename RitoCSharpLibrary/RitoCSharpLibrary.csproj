@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\ConsoleExtension.cs" />
+    <Compile Include="Extensions\DelegateExtension.cs" />
     <Compile Include="Extensions\ForeachExtension.cs" />
     <Compile Include="Extensions\NumberExtension.cs" />
     <Compile Include="Extensions\ReflectionExtension.cs" />
