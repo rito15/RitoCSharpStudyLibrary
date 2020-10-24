@@ -17,6 +17,10 @@ namespace Rito
     /// <para/> ==> 메소드가 중복되지 않게 이벤트에 핸들러로 추가
     /// <para/> - 이벤트 변수 비우기 : ResetKeyDownEvent(), ResetKeyUpEvent()
     /// <para/> .
+    /// <para/> - ForceKeyDown(Keys key) : 강제로 키 누름 이벤트 발생
+    /// <para/> - ForceKeyUp(Keys key) : 강제로 키 뗌 이벤트 발생
+    /// <para/> - ForceKeyPress(Keys key) : 강제로 키 입력 이벤트 발생
+    /// <para/> .
     /// <para/> [참고]
     /// <para/> - KeyDown, KeyUp 이벤트 변수에 핸들러를 추가하여 사용
     /// <para/> - 후킹 중인 동안에도 핸들러 추가/제거 가능
@@ -26,28 +30,31 @@ namespace Rito
     /// </summary>
     class GlobalKeyHook
     {
-        #region _DLL Import
+        #region DLL Import
 
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern IntPtr SetWindowsHookEx(int idHook, keyboardHookProc callback, IntPtr hInstance, uint threadId);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern bool UnhookWindowsHookEx(IntPtr hInstance);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
-        static extern int CallNextHookEx(IntPtr idHook, int nCode, int wParam, ref keyboardHookStruct IParam);
+        static extern int CallNextHookEx(IntPtr idHook, int nCode, int wParam, ref KeyboardHookInfo IParam);
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         static extern short GetKeyState(int nCode);
         [System.Runtime.InteropServices.DllImport("kernel32.dll")]
         static extern IntPtr LoadLibrary(string IpFileName);   // 라이브러리 등록
 
+        // 키 이벤트 호출하기
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern void keybd_event(byte vk, byte scan, int flags, ref int extrainfo);
+
         #endregion // ==========================================================
 
-        #region _Hide
+        #region Hide
 
         // callback Delegate
-        private delegate int keyboardHookProc(int code, int wParam, ref keyboardHookStruct IParam);
+        private delegate int keyboardHookProc(int code, int wParam, ref KeyboardHookInfo IParam);
 
-        // keyboardHookStruct 구조체 정의
-        private struct keyboardHookStruct
+        private struct KeyboardHookInfo
         {
             public int vkCode;
             public int scanCode;
@@ -81,7 +88,7 @@ namespace Rito
             khp = new keyboardHookProc(HookProc);
         }
 
-        private int HookProc(int code, int wParam, ref keyboardHookStruct IParam)
+        private int HookProc(int code, int wParam, ref KeyboardHookInfo IParam)
         {
             if (code >= 0)
             {
@@ -181,5 +188,33 @@ namespace Rito
         public void Start() => Hook();
         /// <summary> 후킹 종료 </summary>
         public void Stop() => UnHook();
+
+        #region Force Events
+
+        /// <summary> 강제로 키 누름 이벤트 호출하기 </summary>
+        public void ForceKeyDown(Keys key)
+        {
+            int Info = 0;
+            keybd_event((byte)key, 0, 0, ref Info);
+        }
+
+        /// <summary> 강제로 키 뗌 이벤트 호출하기 </summary>
+        public void ForceKeyUp(Keys key)
+        {
+            int Info = 0;
+            keybd_event((byte)key, 0, 0x02, ref Info);
+        }
+
+        /// <summary> 강제로 키입력 이벤트 호출하기 </summary>
+        public void ForceKeyPress(Keys key)
+        {
+            int Info = 0;
+            keybd_event((byte)key, 0, 0x00, ref Info);
+            keybd_event((byte)key, 0, 0x02, ref Info);
+        }
+
+        #endregion // ==========================================================
+
+
     }
 }

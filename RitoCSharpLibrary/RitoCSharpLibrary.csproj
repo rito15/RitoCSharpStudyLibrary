@@ -51,6 +51,7 @@
     <Compile Include="MainClass.cs" />
     <None Include="Program.cs" />
     <Compile Include="Rito\GlobalKeyHook.cs" />
+    <Compile Include="Rito\GlobalMouseHook.cs" />
     <Compile Include="Rito\RitoAdmin.cs" />
     <Compile Include="Rito\RitoConsole.cs" />
     <Compile Include="Rito\RitoDelegate.cs" />
