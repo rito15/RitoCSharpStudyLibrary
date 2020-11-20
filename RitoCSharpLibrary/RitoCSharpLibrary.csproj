@@ -50,8 +50,8 @@
     <Compile Include="Extensions\TesterExtension.cs" />
     <Compile Include="MainClass.cs" />
     <None Include="Program.cs" />
-    <Compile Include="Rito\GlobalKeyHook.cs" />
-    <Compile Include="Rito\GlobalMouseHook.cs" />
+    <Compile Include="Hook\GlobalKeyHook.cs" />
+    <Compile Include="Hook\GlobalMouseHook.cs" />
     <Compile Include="Rito\RitoAdmin.cs" />
     <Compile Include="Rito\RitoConsole.cs" />
     <Compile Include="Rito\RitoDelegate.cs" />
@@ -63,6 +63,8 @@
     <Compile Include="Rito\RitoSmarts.cs" />
     <Compile Include="Rito\RitoString.cs" />
     <Compile Include="Rito\RitoTester.cs" />
+    <Compile Include="SocketLib\SocketClient.cs" />
+    <Compile Include="SocketLib\SocketServer.cs" />
     <Compile Include="Study\AttributeStudy.cs" />
     <Compile Include="Study\EnumStudy.cs" />
     <Compile Include="Study\IndexerStudy.cs" />

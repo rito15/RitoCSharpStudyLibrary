@@ -33,27 +33,34 @@ namespace RitoCSharpLibrary
             //Main_2020_01_21_ForeachExtension();
             //Main_2020_01_25_Extensions();
             //Main_2020_01_26_Extensions();
+            /*
+                        var studyList = typeof(RitoStudyClassAttribute).Ex_GetAttributeUsedClasses("Study");
 
-            var studyList = typeof(RitoStudyClassAttribute).Ex_GetAttributeUsedClasses("Study");
+                        foreach (var type in studyList)
+                        {
+                            object instance = Activator.CreateInstance(type);
+                            var attrs = type.GetCustomAttributes(typeof(RitoStudyClassAttribute), false);
 
-            foreach (var type in studyList)
-            {
-                object instance = Activator.CreateInstance(type);
-                var attrs = type.GetCustomAttributes(typeof(RitoStudyClassAttribute), false);
+                            foreach (var attr in attrs)
+                            {
+                                (attr as RitoStudyClassAttribute)?.PrintTitle();
+                            }
 
-                foreach (var attr in attrs)
-                {
-                    (attr as RitoStudyClassAttribute)?.PrintTitle();
-                }
+                            foreach (var method in type.Ex_GetAttributeUsedMethods(typeof(RitoStudyMethodAttribute)))
+                            {
+                                Console.WriteLine($"<{method.methodInfo.Name}>");
+                                method.methodInfo.Invoke(instance, new object[] { });
 
-                foreach (var method in type.Ex_GetAttributeUsedMethods(typeof(RitoStudyMethodAttribute)))
-                {
-                    Console.WriteLine($"<{method.methodInfo.Name}>");
-                    method.methodInfo.Invoke(instance, new object[] { });
+                                Console.WriteLine("");
+                            }
+                        }*/
 
-                    Console.WriteLine("");
-                }
-            }
+            //SocketLib.SocketServer server = new SocketLib.SocketServer();
+            //server.Run();
+
+            SocketLib.SocketClient client = new SocketLib.SocketClient();
+            client.Run();
+            client.SendToServer("HH i");
         }
 
         #region Previous Main Methods
